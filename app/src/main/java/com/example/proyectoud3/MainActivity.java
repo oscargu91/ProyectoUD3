@@ -20,8 +20,11 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
 
 
     private RecyclerView recyclerView;
+    private RecyclerView recyclerFav;
     private CocheAdapter adapter;
+    private CocheAdapter adapterFav;
     private List<Coche> listaCoches;
+    private List<Coche> listaFav;
     private Coche cocheSeleccionado;
 
 
@@ -48,21 +51,28 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         listaCoches.add(new Coche(R.drawable.nio_electrico, "Nio", "42000 €", "Eléctrico", "600 Km"));
         listaCoches.add(new Coche(R.drawable.clase_c_amg, "Mercedes clase C AMG", "120000 €", "Gasolina", "600 Km"));
 
-        // Crear y asociar el adaptador
+        // Crear y asociar el adaptador para ambos recyclerView
         Switch switchMostrarDetalles = findViewById(R.id.switchMostrarDetalles);
         adapter = new CocheAdapter(listaCoches, MainActivity.this,MainActivity.this, switchMostrarDetalles.isChecked());
         recyclerView.setAdapter(adapter);
 
+        adapterFav = new CocheAdapter(listaFav, MainActivity.this,MainActivity.this, switchMostrarDetalles.isChecked());
+        recyclerFav.setAdapter(adapterFav);
+
         switchMostrarDetalles.setOnCheckedChangeListener((buttonView, isChecked) -> {
             adapter.setMostrarDetalles(isChecked);
+            adapterFav.setMostrarDetalles(isChecked);
+
         });
 
-        // Establecer el LayoutManager
+        // Establecer el layoutManager de listaCoches
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setVerticalScrollBarEnabled(true);
 
-
+        // Establecer el layoutManager de listaFav
+        LinearLayoutManager layoutManagerFav =new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false); //scroll horizontal
+        recyclerFav.setLayoutManager(layoutManagerFav);
 
 
 
@@ -71,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
 
 
 
@@ -86,4 +95,19 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
 
     }
+
+    // Cuando haces clic en un coche de la lista de favoritos sale el toast con info
+    @Override
+    public void onItemClickListaFav(View view, int position) {
+
+        Coche coche = listaFav.get(position);
+        String mensaje = "Modelo: " + coche.getModelo() + "\nPrecio: " + coche.getPrecio();
+
+        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+
+    }
+
+
+
+
 }

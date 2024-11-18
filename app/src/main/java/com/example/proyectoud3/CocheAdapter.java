@@ -27,13 +27,15 @@ public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHo
 
 
 
-    //Constructor del adaptador
+    //Constructor del adaptador listaCoches
     public CocheAdapter(List<Coche> listaCoches, Context contexto, OnItemClickListener listener, boolean mostrarDetalles) {
         this.listaCoches = listaCoches;
         this.contexto = contexto;
         this.listener = listener;
         this.mostrarDetalles = mostrarDetalles;
     }
+
+
 
     @NonNull
     @Override

@@ -2,6 +2,6 @@
     <string name="app_name">ProyectoUD3</string>
     <string name="TituloApp">Tu coche favorito</string>
     <string name="Detalles">Ver detalles</string>
-    <string name="Añadir">Añadir</string>
-    <string name="VerFavorito">Ver Favoritos</string>
+    <string name="Añadir">Añadir a favoritos</string>
+    <string name="VerFavorito">Ver favoritos</string>
 </resources>
