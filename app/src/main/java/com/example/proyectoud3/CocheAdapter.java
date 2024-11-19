@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,16 +17,21 @@ import java.util.List;
 public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHolder>{
 
     private List<Coche> listaCoches;
+
     private Context contexto;
     private OnItemClickListener listener;
     private boolean mostrarDetalles;
 
+
+
+
+
     // Interfaz para manejar los clics
     public interface OnItemClickListener {
+
+        void OnItemClickCard(View view, int position);
         void onItemClick(View view, int position);
     }
-
-
 
     //Constructor del adaptador listaCoches
     public CocheAdapter(List<Coche> listaCoches, Context contexto, OnItemClickListener listener, boolean mostrarDetalles) {
@@ -51,7 +57,7 @@ public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHo
     public static class CocheViewHolder extends RecyclerView.ViewHolder {
         ImageView Imagen;
         TextView Modelo, Precio, Propulsion, Autonomia;
-
+        Button botonFav;
         public CocheViewHolder(View itemView, OnItemClickListener listener) {
             super(itemView);
             Imagen = itemView.findViewById(R.id.idImagen);
@@ -59,11 +65,20 @@ public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHo
             Precio = itemView.findViewById(R.id.idPrecio);
             Propulsion = itemView.findViewById(R.id.idPropulsion);
             Autonomia = itemView.findViewById(R.id.idAutonomia);
+            botonFav = itemView.findViewById(R.id.botonFav);
 
-            // Configurar el click para cada elemento, pasando la View y la posición
+            // Configurar el click para el cardView
             itemView.setOnClickListener(view -> {
                 if (listener != null) {
-                    listener.onItemClick(view, getAdapterPosition());
+                    listener.OnItemClickCard(view, getAdapterPosition());
+                }
+            });
+
+            // Configurar el click para cuando pulso el boton de añadir a favoritos
+            botonFav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(v, getAdapterPosition());
                 }
             });
 
@@ -96,6 +111,7 @@ public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHo
             holder.Propulsion.setVisibility(View.GONE);
             holder.Autonomia.setVisibility(View.GONE);
         }
+        //holder.botonFav.setText("hopofdpsgpok");
 
     }
 

@@ -6,14 +6,20 @@ public class Coche {
     private String precio;
     private String propulsion;
     private String autonomia;
+    private Boolean booleanoFav;
 
-    public Coche(int foto, String modelo, String precio, String propulsion, String autonomia) {
+
+
+    public Coche(int foto, String modelo, String precio, String propulsion, String autonomia, Boolean booleanoFav) {
         this.foto = foto;
         this.modelo = modelo;
         this.precio = precio;
         this.propulsion = propulsion;
         this.autonomia = autonomia;
+        this.booleanoFav = booleanoFav;
     }
+
+
 
     public int getFoto() {
         return foto;
@@ -54,4 +60,12 @@ public class Coche {
     public void setAutonomia(String autonomia) {
         this.autonomia = autonomia;
     }
+    public Boolean getBooleanoFav() {
+        return booleanoFav;
+    }
+
+    public void setBooleanoFav(Boolean booleanoFav) {
+        this.booleanoFav = booleanoFav;
+    }
+
 }

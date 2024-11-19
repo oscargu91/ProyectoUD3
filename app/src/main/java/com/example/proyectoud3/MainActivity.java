@@ -1,7 +1,9 @@
 package com.example.proyectoud3;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -16,17 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements CocheAdapter.OnItemClickListener{
-
+public class MainActivity extends AppCompatActivity implements CocheAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private RecyclerView recyclerFav;
     private CocheAdapter adapter;
-    private CocheAdapter adapterFav;
+    private CocheAdapterFav adapterFavoritos;
     private List<Coche> listaCoches;
     private List<Coche> listaFav;
-    private Coche cocheSeleccionado;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,74 +33,102 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-
-        // Inicializar RecyclerView
+        // Inicializar RecyclerViews
         recyclerView = findViewById(R.id.recyclerView);
+        recyclerFav = findViewById(R.id.recyclerFavoritos);
 
         // Crear datos para la lista
         listaCoches = new ArrayList<>();
-        listaCoches.add(new Coche(R.drawable.mgzs, "MG ZS", "22000 €", "Híbrido", "1100 Km"));
-        listaCoches.add(new Coche(R.drawable.serie1, "BMW Serie 1", "39000 €", "Diesel", "1200 Km"));
-        listaCoches.add(new Coche(R.drawable.serie4, "BMW Serie 4", "58000 €", "Gasolina", "900 Km"));
-        listaCoches.add(new Coche(R.drawable.kia_ev_nueve, "KIA EV9", "36000 €", "Eléctrico", "600 Km"));
-        listaCoches.add(new Coche(R.drawable.rscuatro, "AUDI RS4", "105000 €", "Gasolina", "600 Km"));
-        listaCoches.add(new Coche(R.drawable.rs_tres_sedan, "AUDI RS3 Sedán", "92000 €", "Gasolina", "1100 Km"));
-        listaCoches.add(new Coche(R.drawable.clasea, "Mercedes clase A", "35000 €", "Diesel", "1200 Km"));
-        listaCoches.add(new Coche(R.drawable.claseg, "Mercedes clase G", "190000 €", "Gasolina", "800 Km"));
-        listaCoches.add(new Coche(R.drawable.nio_electrico, "Nio", "42000 €", "Eléctrico", "600 Km"));
-        listaCoches.add(new Coche(R.drawable.clase_c_amg, "Mercedes clase C AMG", "120000 €", "Gasolina", "600 Km"));
-        listaFav.add(new Coche(R.drawable.clase_c_amg, "Mercedes clase C AMG", "120000 €", "Gasolina", "600 Km"));
+        listaCoches.add(new Coche(R.drawable.mgzs, "MG ZS", "22000 €", "Híbrido", "1100 Km", false));
+        listaCoches.add(new Coche(R.drawable.serie1, "BMW Serie 1", "39000 €", "Diesel", "1200 Km",false));
+        listaCoches.add(new Coche(R.drawable.serie4, "BMW Serie 4", "58000 €", "Gasolina", "900 Km", false));
+        listaCoches.add(new Coche(R.drawable.kia_ev_nueve, "KIA EV9", "36000 €", "Eléctrico", "600 Km",false));
+        listaCoches.add(new Coche(R.drawable.rscuatro, "AUDI RS4", "105000 €", "Gasolina", "600 Km",false));
+        listaCoches.add(new Coche(R.drawable.rs_tres_sedan, "AUDI RS3 Sedán", "92000 €", "Gasolina", "1100 Km",false));
+        listaCoches.add(new Coche(R.drawable.clasea, "Mercedes clase A", "35000 €", "Diesel", "1200 Km",false));
+        listaCoches.add(new Coche(R.drawable.claseg, "Mercedes clase G", "190000 €", "Gasolina", "800 Km",false));
+        listaCoches.add(new Coche(R.drawable.nio_electrico, "Nio", "42000 €", "Eléctrico", "600 Km",false));
+        listaCoches.add(new Coche(R.drawable.clase_c_amg, "Mercedes clase C AMG", "120000 €", "Gasolina", "600 Km",false));
 
-        // Crear y asociar el adaptador para ambos recyclerView
+        listaFav = new ArrayList<>();
+
+        // Crear y asociar los adaptadores para ambos RecyclerViews
         Switch switchMostrarDetalles = findViewById(R.id.switchMostrarDetalles);
-        adapter = new CocheAdapter(listaCoches, MainActivity.this,MainActivity.this, switchMostrarDetalles.isChecked());
+
+        // Adaptador para la lista principal de coches
+        adapter = new CocheAdapter(listaCoches, MainActivity.this, this, switchMostrarDetalles.isChecked());
+
+        // Adaptador para la lista de favoritos
+        adapterFavoritos = new CocheAdapterFav(listaFav, MainActivity.this);
+
         recyclerView.setAdapter(adapter);
+        recyclerFav.setAdapter(adapterFavoritos);
 
-        adapterFav = new CocheAdapter(listaFav, MainActivity.this,MainActivity.this, switchMostrarDetalles.isChecked());
-        recyclerFav.setAdapter(adapterFav);
-
+        // Cambiar visibilidad de detalles dependiendo del switch
         switchMostrarDetalles.setOnCheckedChangeListener((buttonView, isChecked) -> {
             adapter.setMostrarDetalles(isChecked);
-            adapterFav.setMostrarDetalles(isChecked);
-
         });
 
-        // Establecer el layoutManager de listaCoches
+        // Establecer el layoutManager para la lista principal de coches
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setVerticalScrollBarEnabled(true);
 
-        // Establecer el layoutManager de listaFav
-        LinearLayoutManager layoutManagerFav =new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false); //scroll horizontal
+        // Establecer el layoutManager para la lista de favoritos (horizontal)
+        LinearLayoutManager layoutManagerFav = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerFav.setLayoutManager(layoutManagerFav);
 
-
-
+        // Manejo de los márgenes de las barras del sistema
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
 
-
-
+    @Override
+    public void OnItemClickCard(View view, int position) {
+        Coche coche = listaCoches.get(position);
+        String mensaje = "Modelo: " + coche.getModelo() + "\nPrecio: " + coche.getPrecio();
+        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onItemClick(View view, int position) {
+        Coche cocheFav = listaCoches.get(position);
 
+        // Verificar si el coche ya está en la lista de favoritos
+        if (!listaFav.contains(cocheFav)) {
+            // Si no está en favoritos, se añade
+            listaFav.add(cocheFav);  // Añadir coche a la lista de favoritos
+            cocheFav.setBooleanoFav(true);  // Actualizar el campo booleanoFav a true
+            Button bt = (Button) view.findViewById(R.id.botonFav);  // Asegúrate de usar el ID correcto
+            bt.setText("Favorito");  // Cambiar el texto del botón a "Favorito"
+            Toast.makeText(this, "Coche añadido a favoritos", Toast.LENGTH_SHORT).show();
+            adapterFavoritos.notifyDataSetChanged();  // Notificar al adaptador de favoritos que hay un cambio
+        } else {
+            // Si el coche ya está en favoritos, lo eliminamos
+            listaFav.remove(cocheFav);  // Eliminar coche de la lista de favoritos
+            cocheFav.setBooleanoFav(false);  // Actualizar el campo booleanoFav a false
+            Button bt = (Button) view.findViewById(R.id.botonFav);  // Asegúrate de usar el ID correcto
+            bt.setText("Añadir a favoritos");  // Cambiar el texto del botón de vuelta a "Añadir a favoritos"
+            Toast.makeText(this, "Coche eliminado de favoritos", Toast.LENGTH_SHORT).show();
+            adapterFavoritos.notifyDataSetChanged();  // Notificar al adaptador de favoritos que hay un cambio
+        }
 
-        Coche coche = listaCoches.get(position);
-
-        String mensaje = "Modelo: " + coche.getModelo() + "\nPrecio: " + coche.getPrecio();
-
-        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
-
+        // Actualizar el adaptador de la lista principal para reflejar el cambio
+        adapter.notifyDataSetChanged();  // Notificar al adaptador principal de que ha habido un cambio
     }
 
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
