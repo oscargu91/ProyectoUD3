@@ -1,7 +1,6 @@
 package com.example.proyectoud3;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
@@ -84,6 +83,24 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Button btVerFav = findViewById(R.id.verFavoritos);
+
+        btVerFav.setOnClickListener(v -> {
+            if (recyclerFav.getVisibility() == View.GONE) {
+                recyclerFav.setVisibility(View.VISIBLE); // Mostrar lista de favoritos
+                btVerFav.setText("Ocultar Favoritos"); // Cambiar texto del botón
+            } else {
+                recyclerFav.setVisibility(View.GONE); // Ocultar lista de favoritos
+                btVerFav.setText("Ver Favoritos"); // Cambiar texto del botón
+            }
+        });
+
+        Button botonEliminar = findViewById(R.id.botonAñadirFav);
+
+
+
+
     }
 
     @Override
@@ -97,28 +114,35 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
     public void onItemClick(View view, int position) {
         Coche cocheFav = listaCoches.get(position);
 
+
+
         // Verificar si el coche ya está en la lista de favoritos
         if (!listaFav.contains(cocheFav)) {
             // Si no está en favoritos, se añade
             listaFav.add(cocheFav);  // Añadir coche a la lista de favoritos
             cocheFav.setBooleanoFav(true);  // Actualizar el campo booleanoFav a true
-            Button bt = (Button) view.findViewById(R.id.botonFav);  // Asegúrate de usar el ID correcto
-            bt.setText("Favorito");  // Cambiar el texto del botón a "Favorito"
+            Button bt = (Button) view.findViewById(R.id.botonAñadirFav);
+            bt.setText("Favorito");
             Toast.makeText(this, "Coche añadido a favoritos", Toast.LENGTH_SHORT).show();
-            adapterFavoritos.notifyDataSetChanged();  // Notificar al adaptador de favoritos que hay un cambio
+
         } else {
+
             // Si el coche ya está en favoritos, lo eliminamos
             listaFav.remove(cocheFav);  // Eliminar coche de la lista de favoritos
             cocheFav.setBooleanoFav(false);  // Actualizar el campo booleanoFav a false
-            Button bt = (Button) view.findViewById(R.id.botonFav);  // Asegúrate de usar el ID correcto
+            Button bt = (Button) view.findViewById(R.id.botonAñadirFav);  // Asegúrate de usar el ID correcto
             bt.setText("Añadir a favoritos");  // Cambiar el texto del botón de vuelta a "Añadir a favoritos"
             Toast.makeText(this, "Coche eliminado de favoritos", Toast.LENGTH_SHORT).show();
-            adapterFavoritos.notifyDataSetChanged();  // Notificar al adaptador de favoritos que hay un cambio
+
         }
 
-        // Actualizar el adaptador de la lista principal para reflejar el cambio
-        adapter.notifyDataSetChanged();  // Notificar al adaptador principal de que ha habido un cambio
+        // Notificar al adaptador de favoritos que hay un cambio
+        adapterFavoritos.notifyDataSetChanged();
+
+
     }
+
+
 
 }
 

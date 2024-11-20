@@ -6,7 +6,7 @@ public class Coche {
     private String precio;
     private String propulsion;
     private String autonomia;
-    private Boolean booleanoFav;
+    private Boolean booleanoFav = false;
 
 
 

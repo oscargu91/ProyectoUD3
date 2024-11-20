@@ -25,7 +25,7 @@ public class CocheAdapterFav extends RecyclerView.Adapter<CocheAdapterFav.CocheV
     @Override
     public CocheViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(contexto)
-                .inflate(R.layout.layout_coche, parent, false);
+                .inflate(R.layout.layout_coche_favorito, parent, false);
         return new CocheViewHolder(itemView);
     }
 

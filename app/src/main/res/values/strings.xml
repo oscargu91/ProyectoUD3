@@ -4,4 +4,5 @@
     <string name="Detalles">Ver detalles</string>
     <string name="Añadir">Añadir a favoritos</string>
     <string name="VerFavorito">Ver favoritos</string>
+    <string name="EliminarFav">Eliminar de favoritos</string>
 </resources>

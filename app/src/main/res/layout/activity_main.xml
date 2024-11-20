@@ -37,17 +37,19 @@
             android:text="@string/Detalles" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/verFavoritos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/VerFavorito" />
+            android:text="@string/VerFavorito"
+            android:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerFavoritos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:scrollbars="horizontal" />
+            android:scrollbars="horizontal"
+            android:visibility="gone" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

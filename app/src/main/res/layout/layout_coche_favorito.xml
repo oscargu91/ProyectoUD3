@@ -48,10 +48,10 @@
             android:text="Autonomía: "/>
 
         <Button
-            android:id="@+id/botonAñadir"
+            android:id="@+id/botonAñadirFav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Añadir" />
+            android:text="@string/EliminarFav" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

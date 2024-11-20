@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -65,7 +64,7 @@ public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHo
             Precio = itemView.findViewById(R.id.idPrecio);
             Propulsion = itemView.findViewById(R.id.idPropulsion);
             Autonomia = itemView.findViewById(R.id.idAutonomia);
-            botonFav = itemView.findViewById(R.id.botonFav);
+            botonFav = itemView.findViewById(R.id.botonAñadirFav);
 
             // Configurar el click para el cardView
             itemView.setOnClickListener(view -> {
