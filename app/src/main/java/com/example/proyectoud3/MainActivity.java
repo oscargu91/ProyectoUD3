@@ -32,7 +32,9 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
         Log.i(TAG, "onCreate: Inicio de la actividad");
+
         // Inicializar RecyclerViews
         recyclerView = findViewById(R.id.recyclerView);
         recyclerFav = findViewById(R.id.recyclerFavoritos);
@@ -95,11 +97,11 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
             if (recyclerFav.getVisibility() == View.GONE) {
                 recyclerFav.setVisibility(View.VISIBLE); // Mostrar lista de favoritos
                 btVerFav.setText("Ocultar Favoritos"); // Cambiar texto del botón
-                Log.i(TAG, "Botón pulsado: Ocultando favoritos");
+                Log.i(TAG, "Botón pulsado: Mostrando favoritos");
             } else {
                 recyclerFav.setVisibility(View.GONE); // Ocultar lista de favoritos
                 btVerFav.setText("Ver Favoritos"); // Cambiar texto del botón
-                Log.i(TAG, "Botón pulsado: Mostrar favoritos");
+                Log.i(TAG, "Botón pulsado: Ocultando favoritos");
             }
         });
 
