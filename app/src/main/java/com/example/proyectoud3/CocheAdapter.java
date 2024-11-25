@@ -16,7 +16,6 @@ import java.util.List;
 public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHolder>{
 
     private List<Coche> listaCoches;
-
     private Context contexto;
     private OnItemClickListener listener;
     private boolean mostrarDetalles;
@@ -64,7 +63,7 @@ public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHo
             Precio = itemView.findViewById(R.id.idPrecio);
             Propulsion = itemView.findViewById(R.id.idPropulsion);
             Autonomia = itemView.findViewById(R.id.idAutonomia);
-            botonFav = itemView.findViewById(R.id.botonAñadirFav);
+            botonFav = itemView.findViewById(R.id.botonAnhadirFav);
 
             // Configurar el click para el cardView
             itemView.setOnClickListener(view -> {
