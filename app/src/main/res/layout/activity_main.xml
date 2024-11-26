@@ -17,7 +17,7 @@
             android:id="@+id/tituloApp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#D1D12B"
+            android:background="#4EC37205"
             android:text="@string/TituloApp"
             android:textAlignment="center"
             android:textColor="@color/black"

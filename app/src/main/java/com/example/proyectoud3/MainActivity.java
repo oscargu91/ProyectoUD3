@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -38,9 +37,18 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         // Inicializar RecyclerViews
         recyclerView = findViewById(R.id.recyclerView);
         recyclerFav = findViewById(R.id.recyclerFavoritos);
+        if (recyclerView == null || recyclerFav == null) {
+            Log.e(TAG, "Error: RecyclerView o RecyclerFav no están inicializados");
+            return;
+        }
 
         // Crear datos para la lista
         listaCoches = new ArrayList<>();
+        listaFav = new ArrayList<>();
+        if (listaCoches == null || listaFav == null) {
+            Log.e(TAG, "Error: listaCoches o listaFav no están inicializadas");
+            return;
+        }
         listaCoches.add(new Coche(R.drawable.mgzs, "MG ZS", "22000 €", "Híbrido", "1100 Km", false));
         listaCoches.add(new Coche(R.drawable.serie1, "BMW Serie 1", "39000 €", "Diesel", "1200 Km",false));
         listaCoches.add(new Coche(R.drawable.serie4, "BMW Serie 4", "58000 €", "Gasolina", "900 Km", false));
@@ -52,8 +60,11 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         listaCoches.add(new Coche(R.drawable.nio_electrico, "Nio", "42000 €", "Eléctrico", "600 Km",false));
         listaCoches.add(new Coche(R.drawable.clase_c_amg, "Mercedes clase C AMG", "120000 €", "Gasolina", "600 Km",false));
 
-        listaFav = new ArrayList<>();
-
+        for (Coche coche : listaCoches) {
+            if (coche.getFoto() == 0) {
+                Log.w(TAG, "Advertencia: Imagen no encontrada para el coche " + coche.getModelo());
+            }
+        }
         Log.i(TAG, "onCreate: Datos de la lista de coches inicializados");
 
         // Crear y asociar los adaptadores para ambos RecyclerViews
@@ -61,11 +72,18 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
 
         // Adaptador para la lista principal de coches
         adapter = new CocheAdapter(listaCoches, MainActivity.this, this, switchMostrarDetalles.isChecked());
+        if (adapter == null) {
+            Log.e(TAG, "Error: Adaptador no inicializado");
+        }
         Log.i(TAG, "onCreate: Adaptador de lista principal configurado");
 
         // Adaptador para la lista de favoritos
         adapterFavoritos = new CocheAdapterFav(listaFav, MainActivity.this,this);
+        if (adapterFavoritos == null) {
+            Log.e(TAG, "Error: Adaptador de favoritos no inicializado");
+        }
         Log.i(TAG, "onCreate: Adaptador de favoritos configurado");
+
         recyclerView.setAdapter(adapter);
         recyclerFav.setAdapter(adapterFavoritos);
 
@@ -91,8 +109,11 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
             return insets;
         });
 
-        Button btVerFav = findViewById(R.id.verFavoritos);
+        // Configurar el botón para alternar la visibilidad de la lista de favoritos.
+        // Si la lista está oculta, se muestra y se cambia el texto del botón a "Ocultar Favoritos".
+        // Si la lista está visible, se oculta y el texto del botón cambia a "Ver Favoritos".
 
+        Button btVerFav = findViewById(R.id.verFavoritos);
         btVerFav.setOnClickListener(v -> {
             if (recyclerFav.getVisibility() == View.GONE) {
                 recyclerFav.setVisibility(View.VISIBLE); // Mostrar lista de favoritos
@@ -104,16 +125,17 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
                 Log.i(TAG, "Botón pulsado: Ocultando favoritos");
             }
         });
-
-
-
-
-
-
     }
+
     // Metodo onItemClick en cualquier parte (excepto boton) del cardView para mostrar Toast
     @Override
     public void OnItemClickCard(View view, int position) {
+
+        if (position < 0 || position >= listaCoches.size()) {
+            Log.e(TAG, "Error: Posición inválida en listaCoches: " + position);
+            return;
+        }
+
         Coche coche = listaCoches.get(position);
         String mensaje = "Modelo: " + coche.getModelo() + "\nPrecio: " + coche.getPrecio();
         Log.i(TAG, "CardView pulsado: " + mensaje);
@@ -143,11 +165,15 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
 
     }
 
-
+    // Acción de eliminar un coche de la lista de favoritos.
+    // Se obtiene el coche correspondiente en la posición seleccionada, se elimina de la lista
     @Override
     public void onItemClickEliminar(View view, int position) {
+        if (position < 0 || position >= listaFav.size()) {
+            Log.e(TAG, "Error: Posición inválida en listaFav: " + position);
+            return;
+        }
         Coche cocheFavEliminar = listaFav.get(position);
-
         listaFav.remove(cocheFavEliminar);
         Log.w(TAG, "Coche eliminado de favoritos: " + cocheFavEliminar.getModelo());
         // Notificar al adaptador de favoritos que hay un cambio

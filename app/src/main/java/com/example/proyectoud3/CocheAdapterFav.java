@@ -26,13 +26,14 @@ public class CocheAdapterFav extends RecyclerView.Adapter<CocheAdapterFav.CocheV
 
     }
 
-
+    //Constructor del adapter de coches Favoritos
     public CocheAdapterFav(List<Coche> listaFav, Context contexto, OnItemClickListener listenerEliminar) {
         this.listaFav = listaFav;
         this.contexto = contexto;
         this.listenerEliminar = listenerEliminar;
     }
 
+    // Inflar el layout de cada elemento de la lista de favoritos y devolver un ViewHolder asociado.
     @NonNull
     @Override
     public CocheViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,11 +42,12 @@ public class CocheAdapterFav extends RecyclerView.Adapter<CocheAdapterFav.CocheV
         return new CocheViewHolder(itemView);
     }
 
+    // Vincular los datos del coche actual a los elementos visuales del ViewHolder.
+    // Configurar los elementos del card para mostrar los detalles del coche.
     @Override
     public void onBindViewHolder(@NonNull CocheViewHolder holder, int position) {
         Coche coche = listaFav.get(position);
 
-        // Configuración de la tarjeta
         holder.Imagen.setImageResource(coche.getFoto());
         holder.Modelo.setText("Modelo: " + coche.getModelo());
         holder.Precio.setText("Precio: " + coche.getPrecio());
@@ -53,15 +55,19 @@ public class CocheAdapterFav extends RecyclerView.Adapter<CocheAdapterFav.CocheV
         holder.Autonomia.setText("Autonomía: " + coche.getAutonomia());
     }
 
+    // Devolver el tamaño de la lista de favoritos, que determina la cantidad de elementos a mostrar.
     @Override
     public int getItemCount() {
         return listaFav.size();
     }
 
+    // Declaración de las vistas que componen cada tarjeta de coche.
+    // Asociar las vistas del layout con los atributos del ViewHolder.
     public static class CocheViewHolder extends RecyclerView.ViewHolder {
         ImageView Imagen;
         TextView Modelo, Precio, Propulsion, Autonomia;
         Button botonEliminar;
+
         public CocheViewHolder(View itemView) {
             super(itemView);
             Imagen = itemView.findViewById(R.id.idImagen);

@@ -40,7 +40,7 @@ public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHo
     }
 
 
-
+    // Inflar el layout de cada elemento de la lista y devolver un ViewHolder asociado.
     @NonNull
     @Override
     public CocheAdapter.CocheViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,7 +51,9 @@ public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHo
     }
 
 
-    // Clase ViewHolder para mantener las vistas de cada coche
+    // Declaración de las vistas que componen cada tarjeta de coche.
+    // Asociar las vistas del layout con los atributos del ViewHolder.
+
     public static class CocheViewHolder extends RecyclerView.ViewHolder {
         ImageView Imagen;
         TextView Modelo, Precio, Propulsion, Autonomia;
@@ -84,13 +86,15 @@ public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHo
         };
     }
 
-
+    //Establece si se deben mostrar los detalles adicionales de cada coche en la lista.
+    //Notifica al adaptador que los datos han cambiado
     public void setMostrarDetalles(boolean mostrarDetalles) {
         this.mostrarDetalles = mostrarDetalles;
         notifyDataSetChanged();
     }
 
-
+    // Vincular los datos del coche actual a los elementos visuales del ViewHolder.
+    // Configurar los elementos del card para mostrar los detalles del coche.
     @Override
     public void onBindViewHolder (@NonNull CocheViewHolder holder,int position){
         Coche coche = listaCoches.get(position);
@@ -114,13 +118,13 @@ public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHo
     }
 
 
-
+    // Devolver el tamaño de la lista, que determina la cantidad de elementos a mostrar.
     @Override
     public int getItemCount() {
         return listaCoches.size();
     }
 
-
+    //Devuelve el tamaño de la lista de coches.
     public int getCount() {
         return listaCoches.size();
     }
