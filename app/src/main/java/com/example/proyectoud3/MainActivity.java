@@ -32,13 +32,13 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        Log.i(TAG, "onCreate: Inicio de la actividad");
+        Log.i(TAG, getString(R.string.oncreate_inicio_de_la_actividad));
 
         // Inicializar RecyclerViews
         recyclerView = findViewById(R.id.recyclerView);
         recyclerFav = findViewById(R.id.recyclerFavoritos);
         if (recyclerView == null || recyclerFav == null) {
-            Log.e(TAG, "Error: RecyclerView o RecyclerFav no están inicializados");
+            Log.e(TAG, getString(R.string.error_recyclerview_o_recyclerfav_no_est_n_inicializados));
             return;
         }
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         listaCoches = new ArrayList<>();
         listaFav = new ArrayList<>();
         if (listaCoches == null || listaFav == null) {
-            Log.e(TAG, "Error: listaCoches o listaFav no están inicializadas");
+            Log.e(TAG, getString(R.string.error_listacoches_o_listafav_no_est_n_inicializadas));
             return;
         }
         listaCoches.add(new Coche(R.drawable.mgzs, "MG ZS", "22000 €", "Híbrido", "1100 Km", false));
@@ -62,10 +62,10 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
 
         for (Coche coche : listaCoches) {
             if (coche.getFoto() == 0) {
-                Log.w(TAG, "Advertencia: Imagen no encontrada para el coche " + coche.getModelo());
+                Log.w(TAG, getString(R.string.advertencia_imagen_no_encontrada_para_el_coche) + coche.getModelo());
             }
         }
-        Log.i(TAG, "onCreate: Datos de la lista de coches inicializados");
+        Log.i(TAG, getString(R.string.oncreate_datos_de_la_lista_de_coches_inicializados));
 
         // Crear y asociar los adaptadores para ambos RecyclerViews
         Switch switchMostrarDetalles = findViewById(R.id.switchMostrarDetalles);
@@ -73,23 +73,23 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         // Adaptador para la lista principal de coches
         adapter = new CocheAdapter(listaCoches, MainActivity.this, this, switchMostrarDetalles.isChecked());
         if (adapter == null) {
-            Log.e(TAG, "Error: Adaptador no inicializado");
+            Log.e(TAG, getString(R.string.error_adaptador_no_inicializado));
         }
-        Log.i(TAG, "onCreate: Adaptador de lista principal configurado");
+        Log.i(TAG, getString(R.string.oncreate_adaptador_de_lista_principal_configurado));
 
         // Adaptador para la lista de favoritos
         adapterFavoritos = new CocheAdapterFav(listaFav, MainActivity.this,this);
         if (adapterFavoritos == null) {
-            Log.e(TAG, "Error: Adaptador de favoritos no inicializado");
+            Log.e(TAG, getString(R.string.error_adaptador_de_favoritos_no_inicializado));
         }
-        Log.i(TAG, "onCreate: Adaptador de favoritos configurado");
+        Log.i(TAG, getString(R.string.oncreate_adaptador_de_favoritos_configurado));
 
         recyclerView.setAdapter(adapter);
         recyclerFav.setAdapter(adapterFavoritos);
 
         // Cambiar visibilidad de detalles dependiendo del switch
         switchMostrarDetalles.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            Log.i(TAG, "Switch cambiado: Mostrar detalles = " + isChecked);
+            Log.i(TAG, getString(R.string.switch_cambiado_mostrar_detalles) + isChecked);
             adapter.setMostrarDetalles(isChecked);
         });
 
@@ -117,12 +117,12 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         btVerFav.setOnClickListener(v -> {
             if (recyclerFav.getVisibility() == View.GONE) {
                 recyclerFav.setVisibility(View.VISIBLE); // Mostrar lista de favoritos
-                btVerFav.setText("Ocultar Favoritos"); // Cambiar texto del botón
-                Log.i(TAG, "Botón pulsado: Mostrando favoritos");
+                btVerFav.setText(R.string.ocultar_favoritos); // Cambiar texto del botón
+                Log.i(TAG, getString(R.string.bot_n_pulsado_mostrando_favoritos));
             } else {
                 recyclerFav.setVisibility(View.GONE); // Ocultar lista de favoritos
-                btVerFav.setText("Ver Favoritos"); // Cambiar texto del botón
-                Log.i(TAG, "Botón pulsado: Ocultando favoritos");
+                btVerFav.setText(R.string.ver_favoritos); // Cambiar texto del botón
+                Log.i(TAG, getString(R.string.bot_n_pulsado_ocultando_favoritos));
             }
         });
     }
@@ -132,13 +132,13 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
     public void OnItemClickCard(View view, int position) {
 
         if (position < 0 || position >= listaCoches.size()) {
-            Log.e(TAG, "Error: Posición inválida en listaCoches: " + position);
+            Log.e(TAG, getString(R.string.error_posici_n_inv_lida_en_listacoches) + position);
             return;
         }
 
         Coche coche = listaCoches.get(position);
         String mensaje = "Modelo: " + coche.getModelo() + "\nPrecio: " + coche.getPrecio();
-        Log.i(TAG, "CardView pulsado: " + mensaje);
+        Log.i(TAG, getString(R.string.cardview_pulsado) + mensaje);
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 
@@ -151,17 +151,17 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         if (!listaFav.contains(cocheFav)) {
             // Si no está en favoritos, se añade
             listaFav.add(cocheFav);
-            Log.i(TAG, "Coche añadido a favoritos: " + cocheFav.getModelo());
-            Toast.makeText(this, "Coche añadido a favoritos", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, getString(R.string.coche_a_adido_a_favoritos) + cocheFav.getModelo());
+            Toast.makeText(this, R.string.coche_a_adido_a_favoritos, Toast.LENGTH_SHORT).show();
 
         } else {
-            Log.w(TAG, "El coche ya está en favoritos: " + cocheFav.getModelo());
-            Toast.makeText(this, "El coche ya esta en favoritos", Toast.LENGTH_SHORT).show();
+            Log.w(TAG, getString(R.string.el_coche_ya_est_en_favoritos) + cocheFav.getModelo());
+            Toast.makeText(this, R.string.el_coche_ya_esta_en_favoritos, Toast.LENGTH_SHORT).show();
         }
 
        // Notificar al adaptador de favoritos que hay un cambio
         adapterFavoritos.notifyDataSetChanged();
-        Log.i(TAG, "Adapter de favoritos notificado del cambio");
+        Log.i(TAG, getString(R.string.adapter_de_favoritos_notificado_del_cambio));
 
     }
 
@@ -170,15 +170,15 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
     @Override
     public void onItemClickEliminar(View view, int position) {
         if (position < 0 || position >= listaFav.size()) {
-            Log.e(TAG, "Error: Posición inválida en listaFav: " + position);
+            Log.e(TAG, getString(R.string.error_posici_n_inv_lida_en_listafav) + position);
             return;
         }
         Coche cocheFavEliminar = listaFav.get(position);
         listaFav.remove(cocheFavEliminar);
-        Log.w(TAG, "Coche eliminado de favoritos: " + cocheFavEliminar.getModelo());
+        Log.w(TAG, getString(R.string.coche_eliminado_de_favoritos) + cocheFavEliminar.getModelo());
         // Notificar al adaptador de favoritos que hay un cambio
         adapterFavoritos.notifyDataSetChanged();
-        Log.i(TAG, "Adapter de favoritos notificado del cambio tras eliminación");
+        Log.i(TAG, getString(R.string.adapter_de_favoritos_notificado_del_cambio_tras_eliminaci_n));
     }
 }
 

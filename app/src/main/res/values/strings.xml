@@ -5,4 +5,28 @@
     <string name="Añadir">Añadir a favoritos</string>
     <string name="VerFavorito">Ver favoritos</string>
     <string name="EliminarFav">Eliminar de favoritos</string>
+    <string name="coche_eliminado_de_favoritos">"Coche eliminado de favoritos: "</string>
+    <string name="adapter_de_favoritos_notificado_del_cambio_tras_eliminaci_n">Adapter de favoritos notificado del cambio tras eliminación</string>
+    <string name="error_posici_n_inv_lida_en_listafav">"Error: Posición inválida en listaFav: "</string>
+    <string name="adapter_de_favoritos_notificado_del_cambio">Adapter de favoritos notificado del cambio</string>
+    <string name="el_coche_ya_esta_en_favoritos">El coche ya esta en favoritos</string>
+    <string name="el_coche_ya_est_en_favoritos">"El coche ya está en favoritos: "</string>
+    <string name="coche_a_adido_a_favoritos">"Coche añadido a favoritos: "</string>
+    <string name="cardview_pulsado">"CardView pulsado: "</string>
+    <string name="error_posici_n_inv_lida_en_listacoches">"Error: Posición inválida en listaCoches: "</string>
+    <string name="bot_n_pulsado_ocultando_favoritos">Botón pulsado: Ocultando favoritos</string>
+    <string name="bot_n_pulsado_mostrando_favoritos">Botón pulsado: Mostrando favoritos</string>
+    <string name="ver_favoritos">Ver Favoritos</string>
+    <string name="ocultar_favoritos">Ocultar Favoritos</string>
+    <string name="switch_cambiado_mostrar_detalles">"Switch cambiado: Mostrar detalles = "</string>
+    <string name="oncreate_adaptador_de_favoritos_configurado">onCreate: Adaptador de favoritos configurado</string>
+    <string name="error_adaptador_de_favoritos_no_inicializado">Error: Adaptador de favoritos no inicializado</string>
+    <string name="oncreate_adaptador_de_lista_principal_configurado">onCreate: Adaptador de lista principal configurado</string>
+    <string name="error_adaptador_no_inicializado">Error: Adaptador no inicializado</string>
+    <string name="oncreate_datos_de_la_lista_de_coches_inicializados">onCreate: Datos de la lista de coches inicializados</string>
+    <string name="advertencia_imagen_no_encontrada_para_el_coche">"Advertencia: Imagen no encontrada para el coche "</string>
+    <string name="error_listacoches_o_listafav_no_est_n_inicializadas">Error: listaCoches o listaFav no están inicializadas</string>
+    <string name="error_recyclerview_o_recyclerfav_no_est_n_inicializados">Error: RecyclerView o RecyclerFav no están inicializados</string>
+    <string name="oncreate_inicio_de_la_actividad">onCreate: Inicio de la actividad</string>
+
 </resources>
