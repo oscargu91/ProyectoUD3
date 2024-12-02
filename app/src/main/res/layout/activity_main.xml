@@ -9,9 +9,11 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="415dp"
+        android:layout_height="676dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        tools:layout_editor_absoluteX="0dp">
 
         <TextView
             android:id="@+id/tituloApp"
@@ -27,8 +29,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="360dp"
-            />
+            android:layout_height="360dp" />
 
         <Switch
             android:id="@+id/switchMostrarDetalles"
@@ -52,6 +53,16 @@
             android:visibility="gone" />
 
     </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+
+    </com.google.android.material.tabs.TabLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -14,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.tabs.TabLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,6 +127,33 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
                 Log.i(TAG, getString(R.string.bot_n_pulsado_ocultando_favoritos));
             }
         });
+
+        //Implementacion del tabLayout
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        // Añadir pestañas
+        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
+        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // Acción al seleccionar una pestaña
+                Log.d("TabLayout", "Tab seleccionada: " + tab.getText());
+
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 
     // Metodo onItemClick en cualquier parte (excepto boton) del cardView para mostrar Toast
