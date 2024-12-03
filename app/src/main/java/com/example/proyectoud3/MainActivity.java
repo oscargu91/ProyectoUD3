@@ -1,10 +1,16 @@
 package com.example.proyectoud3;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +19,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
     private List<Coche> listaCoches;
     private List<Coche> listaFav;
     private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,15 +60,15 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
             return;
         }
         listaCoches.add(new Coche(R.drawable.mgzs, "MG ZS", "22000 €", "Híbrido", "1100 Km", false));
-        listaCoches.add(new Coche(R.drawable.serie1, "BMW Serie 1", "39000 €", "Diesel", "1200 Km",false));
+        listaCoches.add(new Coche(R.drawable.serie1, "BMW Serie 1", "39000 €", "Diesel", "1200 Km", false));
         listaCoches.add(new Coche(R.drawable.serie4, "BMW Serie 4", "58000 €", "Gasolina", "900 Km", false));
-        listaCoches.add(new Coche(R.drawable.kia_ev_nueve, "KIA EV9", "36000 €", "Eléctrico", "600 Km",false));
-        listaCoches.add(new Coche(R.drawable.rscuatro, "AUDI RS4", "105000 €", "Gasolina", "600 Km",false));
-        listaCoches.add(new Coche(R.drawable.rs_tres_sedan, "AUDI RS3 Sedán", "92000 €", "Gasolina", "1100 Km",false));
-        listaCoches.add(new Coche(R.drawable.clasea, "Mercedes clase A", "35000 €", "Diesel", "1200 Km",false));
-        listaCoches.add(new Coche(R.drawable.claseg, "Mercedes clase G", "190000 €", "Gasolina", "800 Km",false));
-        listaCoches.add(new Coche(R.drawable.nio_electrico, "Nio", "42000 €", "Eléctrico", "600 Km",false));
-        listaCoches.add(new Coche(R.drawable.clase_c_amg, "Mercedes clase C AMG", "120000 €", "Gasolina", "600 Km",false));
+        listaCoches.add(new Coche(R.drawable.kia_ev_nueve, "KIA EV9", "36000 €", "Eléctrico", "600 Km", false));
+        listaCoches.add(new Coche(R.drawable.rscuatro, "AUDI RS4", "105000 €", "Gasolina", "600 Km", false));
+        listaCoches.add(new Coche(R.drawable.rs_tres_sedan, "AUDI RS3 Sedán", "92000 €", "Gasolina", "1100 Km", false));
+        listaCoches.add(new Coche(R.drawable.clasea, "Mercedes clase A", "35000 €", "Diesel", "1200 Km", false));
+        listaCoches.add(new Coche(R.drawable.claseg, "Mercedes clase G", "190000 €", "Gasolina", "800 Km", false));
+        listaCoches.add(new Coche(R.drawable.nio_electrico, "Nio", "42000 €", "Eléctrico", "600 Km", false));
+        listaCoches.add(new Coche(R.drawable.clase_c_amg, "Mercedes clase C AMG", "120000 €", "Gasolina", "600 Km", false));
 
         for (Coche coche : listaCoches) {
             if (coche.getFoto() == 0) {
@@ -78,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         Log.i(TAG, getString(R.string.oncreate_adaptador_de_lista_principal_configurado));
 
         // Adaptador para la lista de favoritos
-        adapterFavoritos = new CocheAdapterFav(listaFav, MainActivity.this,this);
+        adapterFavoritos = new CocheAdapterFav(listaFav, MainActivity.this, this);
         if (adapterFavoritos == null) {
             Log.e(TAG, getString(R.string.error_adaptador_de_favoritos_no_inicializado));
         }
@@ -125,6 +135,51 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
                 Log.i(TAG, getString(R.string.bot_n_pulsado_ocultando_favoritos));
             }
         });
+
+        //Implementacion del tabLayout
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        // Añadir pestañas
+        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
+        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // Acción al seleccionar una pestaña
+                Log.d("TabLayout", "Tab seleccionada: " + tab.getText());
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.main), "Próximamente", Snackbar.LENGTH_LONG);
+                snackbar.setAction("Deshacer", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Acción al hacer clic en "Deshacer"
+                        Toast.makeText(getApplicationContext(), "Acción deshecha", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                snackbar.show();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        //Genero menu contextual (pulsacion larga en o teu coche favorito) dentro de onCreate
+        TextView tituloMenu = findViewById(R.id.tituloApp);
+        registerForContextMenu(tituloMenu);
+
+        tituloMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               showPopUpMenu(v);
+            }
+        });
+
+
     }
 
     // Metodo onItemClick en cualquier parte (excepto boton) del cardView para mostrar Toast
@@ -151,15 +206,26 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         if (!listaFav.contains(cocheFav)) {
             // Si no está en favoritos, se añade
             listaFav.add(cocheFav);
+
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.main), R.string.coche_a_adido_a_favoritos, Snackbar.LENGTH_LONG);
+            snackbar.setAction("Deshacer", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Acción al hacer clic en "Deshacer"
+                    Toast.makeText(getApplicationContext(), "Acción deshecha", Toast.LENGTH_SHORT).show();
+                }
+            });
+            snackbar.show();
+
             Log.i(TAG, getString(R.string.coche_a_adido_a_favoritos) + cocheFav.getModelo());
-            Toast.makeText(this, R.string.coche_a_adido_a_favoritos, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, R.string.coche_a_adido_a_favoritos, Toast.LENGTH_SHORT).show();
 
         } else {
             Log.w(TAG, getString(R.string.el_coche_ya_est_en_favoritos) + cocheFav.getModelo());
             Toast.makeText(this, R.string.el_coche_ya_esta_en_favoritos, Toast.LENGTH_SHORT).show();
         }
 
-       // Notificar al adaptador de favoritos que hay un cambio
+        // Notificar al adaptador de favoritos que hay un cambio
         adapterFavoritos.notifyDataSetChanged();
         Log.i(TAG, getString(R.string.adapter_de_favoritos_notificado_del_cambio));
 
@@ -180,8 +246,43 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         adapterFavoritos.notifyDataSetChanged();
         Log.i(TAG, getString(R.string.adapter_de_favoritos_notificado_del_cambio_tras_eliminaci_n));
     }
-}
 
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        menu.setHeaderTitle("Elija el color de fondo:");
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+    }
+
+    // Método para asociar un menú emergente popup al pulsar el textView
+    public void showPopUpMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        MenuInflater menuInflater = popupMenu.getMenuInflater();
+        menuInflater.inflate(R.menu.menu, popupMenu.getMenu());
+        // Manejador de clicks
+//        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                TextView tv;
+//                if (item.getItemId() == R.id.op1) {
+//                    tv = (TextView) view;
+//                    tv.setTextColor(Color.YELLOW);
+//                }
+//                if (item.getItemId() == R.id.op2) {
+//                    tv = (TextView) view;
+//                    tv.setTextColor(Color.MAGENTA);
+//                }
+//                return true;
+//            }
+//        });
+
+        popupMenu.show();
+
+
+    }
+}
 
 
 
