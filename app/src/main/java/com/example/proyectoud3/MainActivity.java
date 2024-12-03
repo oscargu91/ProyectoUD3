@@ -1,5 +1,6 @@
 package com.example.proyectoud3;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,11 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        // Establecer orientación según el sensor del dispositivo
+        this.setRequestedOrientation(
+                ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+
 
         Log.i(TAG, getString(R.string.oncreate_inicio_de_la_actividad));
 

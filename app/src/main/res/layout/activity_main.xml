@@ -63,7 +63,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:scrollbars="horizontal"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
     </LinearLayout>
 
