@@ -28,5 +28,7 @@
     <string name="error_listacoches_o_listafav_no_est_n_inicializadas">Error: listaCoches o listaFav no están inicializadas</string>
     <string name="error_recyclerview_o_recyclerfav_no_est_n_inicializados">Error: RecyclerView o RecyclerFav no están inicializados</string>
     <string name="oncreate_inicio_de_la_actividad">onCreate: Inicio de la actividad</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

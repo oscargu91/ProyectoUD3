@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         listaCoches.add(new Coche(R.drawable.nio_electrico, "Nio", "42000 €", "Eléctrico", "600 Km",false));
         listaCoches.add(new Coche(R.drawable.clase_c_amg, "Mercedes clase C AMG", "120000 €", "Gasolina", "600 Km",false));
 
+
+
         for (Coche coche : listaCoches) {
             if (coche.getFoto() == 0) {
                 Log.w(TAG, getString(R.string.advertencia_imagen_no_encontrada_para_el_coche) + coche.getModelo());
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
 
         recyclerView.setAdapter(adapter);
         recyclerFav.setAdapter(adapterFavoritos);
+
 
         // Cambiar visibilidad de detalles dependiendo del switch
         switchMostrarDetalles.setOnCheckedChangeListener((buttonView, isChecked) -> {

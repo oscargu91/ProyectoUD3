@@ -1,6 +1,11 @@
 package com.example.proyectoud3;
 
-public class Coche {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Coche implements Parcelable {
     private int foto;
     private String modelo;
     private String precio;
@@ -68,4 +73,13 @@ public class Coche {
         this.booleanoFav = booleanoFav;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+
+    }
 }

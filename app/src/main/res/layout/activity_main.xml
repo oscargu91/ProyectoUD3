@@ -24,11 +24,11 @@
             android:textSize="34sp"
             android:textStyle="italic" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="com.example.proyectoud3.FragmentListado"
             android:layout_width="match_parent"
-            android:layout_height="360dp"
-            />
+            android:layout_height="wrap_content" />
 
         <Switch
             android:id="@+id/switchMostrarDetalles"
@@ -49,7 +49,8 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:scrollbars="horizontal"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="visible" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
