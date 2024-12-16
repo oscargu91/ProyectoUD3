@@ -10,11 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CocheAdapterFav extends RecyclerView.Adapter<CocheAdapterFav.CocheViewHolder> {
 
-    private List<Coche> listaFav;
+    private ArrayList<Coche> listaFav;
     private Context contexto;
     private static OnItemClickListener listenerEliminar;
 
@@ -27,8 +28,8 @@ public class CocheAdapterFav extends RecyclerView.Adapter<CocheAdapterFav.CocheV
     }
 
     //Constructor del adapter de coches Favoritos
-    public CocheAdapterFav(List<Coche> listaFav, Context contexto, OnItemClickListener listenerEliminar) {
-        this.listaFav = listaFav;
+    public CocheAdapterFav(ArrayList<Coche> listaFav, Context contexto, OnItemClickListener listenerEliminar) {
+        this.listaFav = (listaFav != null) ? listaFav : new ArrayList<Coche>();
         this.contexto = contexto;
         this.listenerEliminar = listenerEliminar;
     }
@@ -56,8 +57,12 @@ public class CocheAdapterFav extends RecyclerView.Adapter<CocheAdapterFav.CocheV
     }
 
     // Devolver el tamaño de la lista de favoritos, que determina la cantidad de elementos a mostrar.
+    // Devolver el tamaño de la lista de favoritos, que determina la cantidad de elementos a mostrar.
     @Override
     public int getItemCount() {
+        if (listaFav == null || listaFav.size() == 0) {
+            return 0;
+        }
         return listaFav.size();
     }
 

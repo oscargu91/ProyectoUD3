@@ -8,50 +8,13 @@
     tools:context=".MainActivity">
 
 
-    <LinearLayout
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.example.proyectoud3.BlankFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tituloApp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#4EC37205"
-            android:text="@string/TituloApp"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="34sp"
-            android:textStyle="italic" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="360dp"
-            />
-
-        <Switch
-            android:id="@+id/switchMostrarDetalles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Detalles" />
-
-        <Button
-            android:id="@+id/verFavoritos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/VerFavorito"
-            android:visibility="visible" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerFavoritos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:scrollbars="horizontal"
-            android:visibility="gone" />
-
-    </LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

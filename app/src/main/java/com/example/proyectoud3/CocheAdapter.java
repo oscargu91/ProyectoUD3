@@ -11,11 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHolder>{
 
-    private List<Coche> listaCoches;
+    private ArrayList<Coche> listaCoches = new ArrayList<>();
     private Context contexto;
     private OnItemClickListener listener;
     private boolean mostrarDetalles;
@@ -32,8 +33,8 @@ public class CocheAdapter extends RecyclerView.Adapter <CocheAdapter.CocheViewHo
     }
 
     //Constructor del adaptador listaCoches
-    public CocheAdapter(List<Coche> listaCoches, Context contexto, OnItemClickListener listener, boolean mostrarDetalles) {
-        this.listaCoches = listaCoches;
+    public CocheAdapter(ArrayList<Coche> listaCoches, Context contexto, OnItemClickListener listener, boolean mostrarDetalles) {
+        this.listaCoches = (listaCoches != null) ? listaCoches : new ArrayList<Coche>();
         this.contexto = contexto;
         this.listener = listener;
         this.mostrarDetalles = mostrarDetalles;
