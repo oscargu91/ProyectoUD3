@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements CocheAdapter.OnIt
         }
         Log.i(TAG, getString(R.string.oncreate_datos_de_la_lista_de_coches_inicializados));
 
-        // Crear y asociar los adaptadores para ambos RecyclerViews
+        
         Switch switchMostrarDetalles = findViewById(R.id.switchMostrarDetalles);
 
         // Adaptador para la lista principal de coches
