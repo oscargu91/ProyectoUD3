@@ -2,11 +2,13 @@ package com.example.proyectoud3;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -15,6 +17,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +50,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
         initData();
-
+        setUpMenuNavigationBar();
         if(savedInstanceState ==null){
 
             listaCoches= initData();
@@ -99,6 +103,54 @@ public class MainActivity extends AppCompatActivity  {
         return listaCoches;
     }
 
+    public void setUpMenuNavigationBar(){
+
+        BottomNavigationView menu = findViewById(R.id.bottomNavigationView);
+        menu.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                if(item.getItemId()== R.id.home){
+                    BlankFragment fragmento = new BlankFragment();
+                    Bundle args = new Bundle();
+
+                    args.putParcelableArrayList("listaDeCoches", listaCoches);
+
+                    fragmento.setArguments(args);
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainerView,fragmento);
+                    fragmentTransaction.commit();
+                    return true;
+
+                }
+                if(item.getItemId()==R.id.opciones){
+
+                    FragmentOpciones fragmento = new FragmentOpciones();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainerView,fragmento);
+                    fragmentTransaction.commit();
+                    return true;
+
+                }
+                if (item.getItemId()==R.id.favoritos){
+                    FragmentOpciones fragmento = new FragmentOpciones();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainerView,fragmento);
+                    fragmentTransaction.commit();
+                    return true;
+
+                }
+
+
+
+                return false;
+            }
+        });
+
+    }
 
 
 
